@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .block
+    .block_head
+      .bheadl
+      .bheadr
+      h2 Monitor List
+    .block_content
+      div.block_content.tab_content#days
+        table(cellpadding='0', cellspacing='0', width='100%', rel='line').stats
+          thead
+            tr
+              td &nbsp;
+              each month in rsp_mon
+                th(scope='col')= month
+          tbody
+            tr
+              th(scope='row') Response Time views
+              each val in rsp_time
+                td= val
+    .bendl
+    .bendr

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  .block
+    .block_head
+      .bheadl
+      .bheadr
+      h2 Monitor Summary
+    .block_content
+      a(href='#').export_csv export_csv
+      form
+        select.styled#export_sel
+          option(selected='selected') Export
+          option CSV
+          option PDF
+        table(cellpadding='0', cellspacing='0', width='100%')#tbl_monitors
+          thead
+            tr
+              th Monitor Name
+              th Uptime Status
+              th Uptime for last 12 months
+              th Current Response time
+              th Average response time
+          tbody
+            each group,i in data[0]['groups']
+              if group['groupname'] == 'marketforce.monitorgroup' || group['groupname'] == 'onlinekmc.monitorgroup' || group['groupname'] == 'marketforce-uk.monitorgroup'
+                tr.tr-monitor
+                  td.groupname= group['group'][0]['displayname']
+                  if status[0]['groups'][i]['status'] == 'Up'
+                    td.uptime_status
+                      div.up
+                  else
+                    td.uptime_status
+                      div.down
+                  td.uptime_12
+                    a(href= 'up_time?groupname='+group['groupname'], target='_blank')= uptime[group['groupname']] + '%'
+                  td.cur_rsp= status[0]['groups'][i]['group'][0]['rspvalue']
+                  td.avg_rsp
+                    a(href= 'response_time?groupname='+group['groupname'], target='_blank')= avg_rsp_time[group['groupname']] + 'ms'
+      .bendl
+      .bendr

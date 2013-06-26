@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .block
+    .block_head
+      .bheadl
+      .bheadr
+      h2 Monitor List
+    .block_content
+      div.block_content.tab_content#months
+        table(cellpadding='0', cellspacing='0', width='100%', rel='line').stats
+          thead
+            tr
+              td &nbsp;
+              each month in uptime_mon
+                th(scope='col')= month
+          tbody
+            tr
+              th(scope='row') Uptime
+              each val in up_time
+                td= val
+    .bendl
+    .bendr
